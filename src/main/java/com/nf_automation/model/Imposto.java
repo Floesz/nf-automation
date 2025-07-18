@@ -1,12 +1,13 @@
 package com.nf_automation.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "imposto")
 public class Imposto {
 
     @Id
@@ -17,12 +18,17 @@ public class Imposto {
     private BigDecimal valor;
     private String cst;
 
-    public Imposto(Long id, String tipo, BigDecimal valor, BigDecimal percentual, String cst) {
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private Produto produto;
+
+    public Imposto(Long id, String tipo, BigDecimal valor, BigDecimal percentual, String cst, Produto produto) {
         this.id = id;
         this.tipo = tipo;
         this.valor = valor;
         this.percentual = percentual;
         this.cst = cst;
+        this.produto = produto;
     }
 
     public Long getId() {
@@ -59,6 +65,14 @@ public class Imposto {
 
     public void setCst(String cst) {
         this.cst = cst;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     @Override

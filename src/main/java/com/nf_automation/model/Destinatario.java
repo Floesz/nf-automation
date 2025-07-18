@@ -1,11 +1,15 @@
 package com.nf_automation.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
+@Entity
+@Table(name = "destinatario")
 public class Destinatario {
 
     @Id

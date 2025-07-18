@@ -1,13 +1,14 @@
 package com.nf_automation.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "produto")
 public class Produto {
 
     @Id
@@ -20,9 +21,13 @@ public class Produto {
     private BigDecimal valorUnitario;
     private BigDecimal valorTotal;
 
+    @ManyToOne
+    @JoinColumn(name = "nota_fiscal_id")
+    private NotaFiscal notaFiscal;
+
     private List<Imposto> impostoList;
 
-    public Produto(Long id, String name, String ncm, String codigo, BigDecimal quantidade, BigDecimal valorUnitario, BigDecimal valorTotal, List<Imposto> impostoList) {
+    public Produto(Long id, String name, String ncm, String codigo, BigDecimal quantidade, BigDecimal valorUnitario, BigDecimal valorTotal, List<Imposto> impostoList, NotaFiscal notaFiscal) {
         this.id = id;
         this.name = name;
         this.ncm = ncm;
@@ -31,6 +36,7 @@ public class Produto {
         this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
         this.impostoList = impostoList;
+        this.notaFiscal = notaFiscal;
     }
 
     public Long getId() {
@@ -91,6 +97,14 @@ public class Produto {
 
     public void setImpostoList(List<Imposto> impostoList) {
         this.impostoList = impostoList;
+    }
+
+    public NotaFiscal getNotaFiscal() {
+        return notaFiscal;
+    }
+
+    public void setNotaFiscal(NotaFiscal notaFiscal) {
+        this.notaFiscal = notaFiscal;
     }
 
     @Override
