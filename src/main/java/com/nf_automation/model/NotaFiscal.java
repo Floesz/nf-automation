@@ -1,10 +1,11 @@
 package com.nf_automation.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,9 @@ public class NotaFiscal {
     @JoinColumn(name = "destinatario_id")
     private Destinatario destinatario;
 
-    private List<Produto> produtoList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "nota_fiscal_id")
+    private List<Produto> produtoList = new ArrayList<>();
 
     public NotaFiscal(Long id, String numero, String serie, LocalDateTime dataEmissao, BigDecimal valorTotal, String chaveAcesso, Emitente emitente, Destinatario destinatario, List<Produto> produtoList) {
         this.id = id;

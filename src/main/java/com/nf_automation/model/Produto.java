@@ -1,7 +1,7 @@
 package com.nf_automation.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,6 +25,8 @@ public class Produto {
     @JoinColumn(name = "nota_fiscal_id")
     private NotaFiscal notaFiscal;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "produto_id")
     private List<Imposto> impostoList;
 
     public Produto(Long id, String name, String ncm, String codigo, BigDecimal quantidade, BigDecimal valorUnitario, BigDecimal valorTotal, List<Imposto> impostoList, NotaFiscal notaFiscal) {

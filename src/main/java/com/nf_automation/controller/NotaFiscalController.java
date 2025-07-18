@@ -24,7 +24,7 @@ public class NotaFiscalController {
     }
 
     // Listar as notas fiscais
-    @GetMapping("/{id}")
+    @GetMapping
     public ResponseEntity<List<NotaFiscal>> listarTodos(){
         List<NotaFiscal> notas = service.listarTodos();
         return ResponseEntity.ok(notas);

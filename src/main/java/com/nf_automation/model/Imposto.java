@@ -1,7 +1,7 @@
 package com.nf_automation.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.util.Objects;
