@@ -1,5 +1,6 @@
 package com.nf_automation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
@@ -23,11 +24,17 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "nota_fiscal_id")
+    @JsonIgnore
     private NotaFiscal notaFiscal;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "produto_id")
     private List<Imposto> impostoList;
+
+
+    public Produto(){
+
+    }
 
     public Produto(Long id, String name, String ncm, String codigo, BigDecimal quantidade, BigDecimal valorUnitario, BigDecimal valorTotal, List<Imposto> impostoList, NotaFiscal notaFiscal) {
         this.id = id;

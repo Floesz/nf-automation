@@ -22,6 +22,11 @@ public class Imposto {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
+
+    public Imposto(){
+
+    }
+
     public Imposto(Long id, String tipo, BigDecimal valor, BigDecimal percentual, String cst, Produto produto) {
         this.id = id;
         this.tipo = tipo;

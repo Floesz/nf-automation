@@ -1,39 +1,24 @@
-package com.nf_automation.model;
+package com.nf_automation.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 
-import java.util.Objects;
-
-@Entity
-@Table(name = "destinatario")
-public class Destinatario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@XmlAccessorType(XmlAccessType.FIELD)
+public class DestinatarioDTO{
     private String nome;
     private String cnpjOuCpf;
     private String inscricaoEstadual;
     private String endereco;
 
-    public Destinatario(){
+    public DestinatarioDTO() {
 
     }
 
-    public Destinatario(Long id, String nome, String cnpjOuCpf, String inscricaoEstadual) {
-        this.id = id;
+    public DestinatarioDTO(String nome, String cnpjOuCpf, String inscricaoEstadual, String endereco) {
         this.nome = nome;
         this.cnpjOuCpf = cnpjOuCpf;
         this.inscricaoEstadual = inscricaoEstadual;
-    }
-
-    public Long getId() {
-        return id;
+        this.endereco = endereco;
     }
 
     public String getNome() {
@@ -66,17 +51,5 @@ public class Destinatario {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Destinatario that = (Destinatario) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 }

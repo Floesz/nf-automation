@@ -2,6 +2,9 @@ package com.nf_automation.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -33,6 +36,11 @@ public class NotaFiscal {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "nota_fiscal_id")
     private List<Produto> produtoList = new ArrayList<>();
+
+
+    public NotaFiscal(){
+
+    }
 
     public NotaFiscal(Long id, String numero, String serie, LocalDateTime dataEmissao, BigDecimal valorTotal, String chaveAcesso, Emitente emitente, Destinatario destinatario, List<Produto> produtoList) {
         this.id = id;
