@@ -1,18 +1,34 @@
 package com.nf_automation.dto;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProdutoDTO{
+
+    @NotBlank(message = "Nome do produto é obrigatório!")
     private String name;
+
+    @NotBlank(message = "O código do produto é obrigatório!")
     private String codigo;
+    @NotBlank(message = "O NCM do produto é obrigatório!")
     private String ncm;
+
+    @NotNull(message = "A quantidade do produto é obrigatório!")
+    @DecimalMin(value = "1", message = "A quantidade do produto não pode ser menor que zero")
     private BigDecimal quantidade;
+
+    @NotNull(message = "O valor unitário do produto é obrigatório!")
+    @DecimalMin(value = "0.01", message = "O valor unitário tem que ser maior que zero.")
     private BigDecimal valorUnitario;
+
+    @NotNull(message = "O valor total do produto é obrigatório!")
+    @DecimalMin(value = "0.01",message = "O valor total do produto tem que ser maior que zero.")
     private BigDecimal valorTotal;
 
     public ProdutoDTO() {

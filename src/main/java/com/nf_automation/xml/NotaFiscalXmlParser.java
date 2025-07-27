@@ -5,6 +5,7 @@ import com.nf_automation.dto.EmitenteDTO;
 import com.nf_automation.dto.DestinatarioDTO;
 import com.nf_automation.dto.ProdutoDTO;
 
+import com.nf_automation.exception.NotaFiscalException;
 import jakarta.xml.bind.JAXBException;
 
 import jakarta.xml.bind.JAXBContext;
@@ -24,7 +25,14 @@ public class NotaFiscalXmlParser {
     }
 
     public NotaFiscalDTO parse(InputStream is) throws JAXBException {
+
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         return (NotaFiscalDTO) unmarshaller.unmarshal(is);
+    }
+
+    private void validarCampos(NotaFiscalDTO dto){
+        if(dto.getChaveAcesso() == null || dto.getChaveAcesso().isBlank()){
+            throw new NotaFiscalException("Chave de acesso é obrigatório");
+        }
     }
 }

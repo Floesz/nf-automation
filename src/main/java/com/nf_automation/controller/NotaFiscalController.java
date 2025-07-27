@@ -1,20 +1,28 @@
 package com.nf_automation.controller;
 
 import com.nf_automation.dto.NotaFiscalDTO;
+import com.nf_automation.exception.NotaFiscalException;
+import com.nf_automation.exception.ResourceConflictException;
 import com.nf_automation.mapper.NotaFiscalMapper;
 import com.nf_automation.model.NotaFiscal;
 import com.nf_automation.service.NotaFiscalService;
 import com.nf_automation.xml.NotaFiscalXmlParser;
+;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/notas_fiscais")
+@Validated
 public class NotaFiscalController {
 
     @Autowired
@@ -23,10 +31,14 @@ public class NotaFiscalController {
     @Autowired
     private NotaFiscalXmlParser parser;
 
+    @Autowired
+    private NotaFiscalMapper mapper;
+
     // Criar nova nota fiscal
     @PostMapping
-    public ResponseEntity<NotaFiscal> salvar(@RequestBody NotaFiscal notaFiscal){
-        NotaFiscal novaNf = service.salvar(notaFiscal);
+    public ResponseEntity<NotaFiscal> salvar(@Valid @RequestBody NotaFiscalDTO notaFiscalDTO){
+        NotaFiscal nf = mapper.toEntity(notaFiscalDTO);
+        NotaFiscal novaNf = service.salvar(nf);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaNf);
     }
 
@@ -69,4 +81,22 @@ public class NotaFiscalController {
         }
 
     }
+
+    // Consultar nota pelo numero
+    @GetMapping("/buscar_por_numero")
+    public ResponseEntity<NotaFiscal> buscarPorNumero(@RequestParam @NotBlank String numero){
+        NotaFiscal nota = service.buscarPorNumero(numero);
+        if(nota == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(nota);
+    }
+
+    // Consultar nota pela chave de acesso
+    @GetMapping("/buscar_por_chaveAcesso")
+    public ResponseEntity<NotaFiscal> buscarPorChaveDeAcesso(@RequestParam @NotBlank String chaveAcesso){
+        NotaFiscal nota = service.buscarPorChaveDeAcesso(chaveAcesso);
+        return ResponseEntity.ok(nota);
+    }
+
 }

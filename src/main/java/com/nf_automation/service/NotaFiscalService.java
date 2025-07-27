@@ -1,6 +1,8 @@
 package com.nf_automation.service;
 
 import com.nf_automation.dto.NotaFiscalDTO;
+import com.nf_automation.exception.NotaFiscalException;
+import com.nf_automation.exception.ResourceConflictException;
 import com.nf_automation.mapper.NotaFiscalMapper;
 import com.nf_automation.model.Destinatario;
 import com.nf_automation.model.Emitente;
@@ -12,9 +14,8 @@ import com.nf_automation.xml.NotaFiscalXmlParser;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,13 @@ public class NotaFiscalService {
     // Salvar nota fiscal no sistema
     public NotaFiscal salvar(NotaFiscal notaFiscal){
 
+        if(notaFiscal == null || notaFiscal.getChaveAcesso() == null){
+            throw new NotaFiscalException("Nota Fiscal ou chave de acesso é nula!");
+        }
+        Optional<NotaFiscal> existente = repository.findByChaveAcesso(notaFiscal.getChaveAcesso());
+        if(existente.isPresent()){
+            throw new ResourceConflictException("Já existe uma nota fiscal com a chave de acesso informada!");
+        }
         Emitente novoEmitente = repoEmitente.save(notaFiscal.getEmitente());
         notaFiscal.setEmitente(novoEmitente);
 
@@ -67,6 +75,19 @@ public class NotaFiscalService {
         NotaFiscal notaFiscal = NotaFiscalMapper.toEntity(dto);
         return repository.save(notaFiscal);
     }
+
+    // Buscar pela chave de acesso
+    public NotaFiscal buscarPorChaveDeAcesso(String chaveAcesso){
+        return repository.findByChaveAcesso(chaveAcesso)
+                .orElseThrow(() -> new RuntimeException("Nota fiscal com chave de acesso" + chaveAcesso + "nao encontrada"));
+    }
+
+    // Buscar pelo numero de série
+    public NotaFiscal buscarPorNumero(String numero){
+        return repository.findByNumero(numero)
+                .orElseThrow(() -> new RuntimeException("Nota fiscal com numero" + numero + "nao encotrada"));
+    }
+
 
 
 }

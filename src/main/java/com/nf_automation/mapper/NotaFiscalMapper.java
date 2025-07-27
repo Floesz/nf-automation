@@ -2,11 +2,12 @@ package com.nf_automation.mapper;
 
 import com.nf_automation.dto.*;
 import com.nf_automation.model.*;
-
+import org.mapstruct.Mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Mapper(componentModel = "spring")
 public class NotaFiscalMapper {
 
     public static NotaFiscal toEntity(NotaFiscalDTO dto) {

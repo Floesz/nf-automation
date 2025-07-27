@@ -1,6 +1,11 @@
 package com.nf_automation.dto;
 
 import com.nf_automation.xml.LocalDateTimeAdapter;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.springframework.cglib.core.Local;
@@ -12,21 +17,37 @@ import java.util.List;
 @XmlRootElement(name = "notaFiscal")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NotaFiscalDTO {
+
+    @NotBlank(message = "Numero da nota fiscal é obrigatório!")
     private String numero;
+
+    @NotBlank(message = "Série da nota fiscal é obrigatório!")
     private String serie;
+
+    @NotNull(message = "Valor total é obrigatório!")
+    @DecimalMin(value = "0.01", message = "Valor total tem que ser maior que zero.")
     private BigDecimal valorTotal;
+
+    @NotBlank(message = "Chave de acesso da nota fiscal é obrigatório!")
     private String chaveAcesso;
 
+   @Valid
+   @NotNull(message = "Emitente é obrigatório!")
    @XmlElement(name = "emitente")
     private EmitenteDTO emitenteDTO;
 
+    @Valid
+    @NotNull(message = "Destinatario é obrigatório!")
     @XmlElement(name = "destinatario")
     private DestinatarioDTO destinatarioDTO;
 
+    @Valid
+    @NotEmpty(message = "A nota fiscal deve conter pelo menos um produto.")
     @XmlElementWrapper(name = "produtos")
     @XmlElement(name = "produto")
     private List<ProdutoDTO> produtoDTOList;
 
+    @NotNull(message = "Data de emissão é obrigatória!")
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime dataEmissao;
 
