@@ -22,7 +22,7 @@ public class ProdutoMapper {
 
         NotaFiscalDTO nfdto = new NotaFiscalDTO();
         List<Produto> produtos = nfdto.getProdutoDTOList() != null ?
-                nfdto.getProdutoDTOList().stream().map(ProdutoMapper::toEntity).collect(Collectors.toList()) :
+                nfdto.getProdutoDTOList().stream().map(ProdutoMapper::toEntity).toList() :
                 new ArrayList<>();
 
         return produto;

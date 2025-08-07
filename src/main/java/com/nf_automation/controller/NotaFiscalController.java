@@ -1,7 +1,6 @@
 package com.nf_automation.controller;
 
 import com.nf_automation.dto.NotaFiscalDTO;
-import com.nf_automation.exception.NotaFiscalException;
 import com.nf_automation.exception.ResourceConflictException;
 import com.nf_automation.mapper.NotaFiscalMapper;
 import com.nf_automation.model.NotaFiscal;
@@ -36,10 +35,14 @@ public class NotaFiscalController {
 
     // Criar nova nota fiscal
     @PostMapping
-    public ResponseEntity<NotaFiscal> salvar(@Valid @RequestBody NotaFiscalDTO notaFiscalDTO){
-        NotaFiscal nf = mapper.toEntity(notaFiscalDTO);
-        NotaFiscal novaNf = service.salvar(nf);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novaNf);
+    public ResponseEntity<NotaFiscal> salvar(@RequestBody NotaFiscalDTO notaFiscalDTO){
+        try{
+            NotaFiscal nf = mapper.toEntity(notaFiscalDTO);
+            NotaFiscal novaNf = service.salvar(nf);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novaNf);
+        }catch(ResourceConflictException ex){
+            throw new ResourceConflictException("Essa nota fiscal já está cadastrada!");
+        }
     }
 
     // Listar as notas fiscais

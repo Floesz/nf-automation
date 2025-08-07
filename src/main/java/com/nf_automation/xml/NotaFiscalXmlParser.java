@@ -1,9 +1,6 @@
 package com.nf_automation.xml;
 
-import com.nf_automation.dto.NotaFiscalDTO;
-import com.nf_automation.dto.EmitenteDTO;
-import com.nf_automation.dto.DestinatarioDTO;
-import com.nf_automation.dto.ProdutoDTO;
+import com.nf_automation.dto.*;
 
 import com.nf_automation.exception.NotaFiscalException;
 import jakarta.xml.bind.JAXBException;
@@ -21,13 +18,7 @@ public class NotaFiscalXmlParser {
     private JAXBContext jaxbContext;
 
     public NotaFiscalXmlParser() throws JAXBException {
-        jaxbContext = JAXBContext.newInstance(NotaFiscalDTO.class, EmitenteDTO.class, DestinatarioDTO.class, ProdutoDTO.class);
-    }
-
-    public NotaFiscalDTO parse(InputStream is) throws JAXBException {
-
-        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        return (NotaFiscalDTO) unmarshaller.unmarshal(is);
+        jaxbContext = JAXBContext.newInstance(NotaFiscalDTO.class, EmitenteDTO.class, DestinatarioDTO.class, ProdutoDTO.class, NfeProcDTO.class);
     }
 
     private void validarCampos(NotaFiscalDTO dto){
@@ -35,4 +26,19 @@ public class NotaFiscalXmlParser {
             throw new NotaFiscalException("Chave de acesso é obrigatório");
         }
     }
+
+    public NotaFiscalDTO parse(InputStream is) throws JAXBException {
+        jaxbContext = JAXBContext.newInstance(NfeProcDTO.class, NotaFiscalDTO.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        Object obj = unmarshaller.unmarshal(is);
+
+        if (obj instanceof NfeProcDTO) {
+            return ((NfeProcDTO) obj).getNfe();
+        } else if (obj instanceof NotaFiscalDTO) {
+            return (NotaFiscalDTO) obj;
+        } else {
+            throw new JAXBException("XML inválido ou formato desconhecido");
+        }
+    }
+
 }

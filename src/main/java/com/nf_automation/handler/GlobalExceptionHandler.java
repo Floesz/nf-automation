@@ -47,8 +47,10 @@ public class GlobalExceptionHandler {
 
     // Capturar erro de duplicidade e lançar o erro 409
     @ExceptionHandler(ResourceConflictException.class)
-    public ResponseEntity<String> handleResourceConflict(ResourceConflictException ex) {
-        System.out.println("Interceptou ResourceConflictException!");
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    public ResponseEntity<Object> handleResourceConflict(ResourceConflictException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("erro", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
+
 }

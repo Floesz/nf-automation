@@ -8,13 +8,13 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.springframework.cglib.core.Local;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@XmlRootElement(name = "notaFiscal")
+@XmlRootElement(name = "NFe")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NotaFiscalDTO {
 
@@ -31,9 +31,9 @@ public class NotaFiscalDTO {
     @NotBlank(message = "Chave de acesso da nota fiscal é obrigatório!")
     private String chaveAcesso;
 
-   @Valid
-   @NotNull(message = "Emitente é obrigatório!")
-   @XmlElement(name = "emitente")
+    @Valid
+    @NotNull(message = "Emitente é obrigatório!")
+    @XmlElement(name = "emitente")
     private EmitenteDTO emitenteDTO;
 
     @Valid
