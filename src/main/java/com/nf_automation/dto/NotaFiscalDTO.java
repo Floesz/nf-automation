@@ -14,41 +14,47 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@XmlRootElement(name = "NFe")
+@XmlRootElement(name = "NFe", namespace = "http://www.portalfiscal.inf.br/nfe")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NotaFiscalDTO {
 
     @NotBlank(message = "Numero da nota fiscal é obrigatório!")
+    @XmlElement(name = "nNF", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String numero;
 
     @NotBlank(message = "Série da nota fiscal é obrigatório!")
+    @XmlElement(name = "serie", namespace = "http://www.portalfiscal.inf.br/nfe")
+
     private String serie;
 
     @NotNull(message = "Valor total é obrigatório!")
     @DecimalMin(value = "0.01", message = "Valor total tem que ser maior que zero.")
+    @XmlElement(name = "vNF", namespace = "http://www.portalfiscal.inf.br/nfe")
     private BigDecimal valorTotal;
 
     @NotBlank(message = "Chave de acesso da nota fiscal é obrigatório!")
+    @XmlElement(name = "chNFe", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String chaveAcesso;
 
     @Valid
     @NotNull(message = "Emitente é obrigatório!")
-    @XmlElement(name = "emitente")
+    @XmlElement(name = "emit", namespace = "http://www.portalfiscal.inf.br/nfe")
     private EmitenteDTO emitenteDTO;
 
     @Valid
     @NotNull(message = "Destinatario é obrigatório!")
-    @XmlElement(name = "destinatario")
+    @XmlElement(name = "dest", namespace = "http://www.portalfiscal.inf.br/nfe")
     private DestinatarioDTO destinatarioDTO;
 
     @Valid
     @NotEmpty(message = "A nota fiscal deve conter pelo menos um produto.")
-    @XmlElementWrapper(name = "produtos")
-    @XmlElement(name = "produto")
+    @XmlElementWrapper(name = "det", namespace = "http://www.portalfiscal.inf.br/nfe")
+    @XmlElement(name = "prod", namespace = "http://www.portalfiscal.inf.br/nfe")
     private List<ProdutoDTO> produtoDTOList;
 
     @NotNull(message = "Data de emissão é obrigatória!")
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    @XmlElement(name = "dhEmi", namespace = "http://www.portalfiscal.inf.br/nfe")
     private LocalDateTime dataEmissao;
 
     public NotaFiscalDTO(){

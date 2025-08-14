@@ -1,14 +1,25 @@
 package com.nf_automation.dto;
 
-import com.nf_automation.model.Emitente;
+
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "emit", namespace = "http://www.portalfiscal.inf.br/nfe")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EmitenteDTO{
+
+    @XmlElement(name = "xNome", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String nome;
+
+    @XmlElement(name = "CNPJ", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String cnpj;
+
+    @XmlElement(name = "IE", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String inscricaoEstadual;
+
+    @XmlElement(name = "enderEmit", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String endereco;
 
     public EmitenteDTO(){
