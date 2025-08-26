@@ -36,6 +36,9 @@ public class NotaFiscalDTO {
     @XmlElement(name = "chNFe", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String chaveAcesso;
 
+    @XmlElement(name = "ide", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private IdeDTO ideDTO;
+
     @Valid
     @NotNull(message = "Emitente é obrigatório!")
     @XmlElement(name = "emit", namespace = "http://www.portalfiscal.inf.br/nfe")
@@ -56,6 +59,9 @@ public class NotaFiscalDTO {
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     @XmlElement(name = "dhEmi", namespace = "http://www.portalfiscal.inf.br/nfe")
     private LocalDateTime dataEmissao;
+
+    @XmlElement(name = "total", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private TotalDTO totalDTO;
 
     public NotaFiscalDTO(){
 

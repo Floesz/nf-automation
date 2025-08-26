@@ -20,13 +20,13 @@ public class EmitenteDTO{
     private String inscricaoEstadual;
 
     @XmlElement(name = "enderEmit", namespace = "http://www.portalfiscal.inf.br/nfe")
-    private String endereco;
+    private EnderecoDTO endereco;
 
     public EmitenteDTO(){
 
     }
 
-    public EmitenteDTO(String nome, String cnpj, String inscricaoEstadual, String endereco) {
+    public EmitenteDTO(String nome, String cnpj, String inscricaoEstadual, EnderecoDTO endereco) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.inscricaoEstadual = inscricaoEstadual;
@@ -57,11 +57,11 @@ public class EmitenteDTO{
         this.inscricaoEstadual = inscricaoEstadual;
     }
 
-    public String getEndereco() {
+    public EnderecoDTO getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(EnderecoDTO endereco) {
         this.endereco = endereco;
     }
 }

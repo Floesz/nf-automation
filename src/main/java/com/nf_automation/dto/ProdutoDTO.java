@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 
 import java.math.BigDecimal;
 
@@ -12,23 +13,30 @@ import java.math.BigDecimal;
 public class ProdutoDTO{
 
     @NotBlank(message = "Nome do produto é obrigatório!")
+    @XmlElement(name = "xProd", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String name;
 
     @NotBlank(message = "O código do produto é obrigatório!")
+    @XmlElement(name = "cProd", namespace = "http://www.portalfiscal.inf.br/nfe")
     private String codigo;
+
+    @XmlElement(name = "NCM", namespace = "http://www.portalfiscal.inf.br/nfe")
     @NotBlank(message = "O NCM do produto é obrigatório!")
     private String ncm;
 
     @NotNull(message = "A quantidade do produto é obrigatório!")
     @DecimalMin(value = "1", message = "A quantidade do produto não pode ser menor que zero")
+    @XmlElement(name = "qCom", namespace = "http://www.portalfiscal.inf.br/nfe")
     private BigDecimal quantidade;
 
     @NotNull(message = "O valor unitário do produto é obrigatório!")
     @DecimalMin(value = "0.01", message = "O valor unitário tem que ser maior que zero.")
+    @XmlElement(name = "vUnCom", namespace = "http://www.portalfiscal.inf.br/nfe")
     private BigDecimal valorUnitario;
 
     @NotNull(message = "O valor total do produto é obrigatório!")
     @DecimalMin(value = "0.01",message = "O valor total do produto tem que ser maior que zero.")
+    @XmlElement(name = "vProd", namespace = "http://www.portalfiscal.inf.br/nfe")
     private BigDecimal valorTotal;
 
     public ProdutoDTO() {

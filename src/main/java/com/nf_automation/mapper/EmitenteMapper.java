@@ -10,7 +10,7 @@ public class EmitenteMapper {
         emitente.setNome(dto.getNome());
         emitente.setCnpj(dto.getCnpj());
         emitente.setInscricaoEstadual(dto.getInscricaoEstadual());
-        emitente.setEndereco(dto.getEndereco());
+        emitente.getEndereco();
         return emitente;
     }
 }
