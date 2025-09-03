@@ -7,9 +7,9 @@ public class EmitenteMapper {
 
     public static Emitente toEntity(EmitenteDTO dto) {
         Emitente emitente = new Emitente();
-        emitente.setNome(dto.getNome());
-        emitente.setCnpj(dto.getCnpj());
-        emitente.setInscricaoEstadual(dto.getInscricaoEstadual());
+        emitente.getNome();
+        emitente.getCnpj();
+        emitente.getInscricaoEstadual();
         emitente.getEndereco();
         return emitente;
     }

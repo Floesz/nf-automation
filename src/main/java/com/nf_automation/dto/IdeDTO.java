@@ -4,6 +4,8 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 
+import java.time.LocalDateTime;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class IdeDTO {
 
@@ -69,7 +71,7 @@ public class IdeDTO {
         this.numeroUF = numeroUF;
     }
 
-    public String getDataHoraEmissao() {
+    public LocalDateTime getDataHoraEmissao() {
         return dataHoraEmissao;
     }
 

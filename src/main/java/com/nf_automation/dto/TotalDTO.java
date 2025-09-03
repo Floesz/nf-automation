@@ -9,6 +9,14 @@ public class TotalDTO {
 
     @XmlElement(name = "ICMSTot")
     private IcmsTotDTO icsmTot;
+
+    public IcmsTotDTO getIcsmTot() {
+        return icsmTot;
+    }
+
+    public void setIcsmTot(IcmsTotDTO icsmTot) {
+        this.icsmTot = icsmTot;
+    }
 }
 
 

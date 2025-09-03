@@ -11,4 +11,17 @@ public class IcmsTotDTO {
 
     @XmlElement(name = "vNF")
     private BigDecimal valorNotaFiscal;
+
+    public IcmsTotDTO(){
+
+    }
+
+
+    public BigDecimal getValorNotaFiscal() {
+        return valorNotaFiscal;
+    }
+
+    public void setValorNotaFiscal(BigDecimal valorNotaFiscal) {
+        this.valorNotaFiscal = valorNotaFiscal;
+    }
 }

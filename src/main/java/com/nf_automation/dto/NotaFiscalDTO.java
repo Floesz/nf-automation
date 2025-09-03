@@ -51,9 +51,9 @@ public class NotaFiscalDTO {
 
     @Valid
     @NotEmpty(message = "A nota fiscal deve conter pelo menos um produto.")
-    @XmlElementWrapper(name = "det", namespace = "http://www.portalfiscal.inf.br/nfe")
-    @XmlElement(name = "prod", namespace = "http://www.portalfiscal.inf.br/nfe")
-    private List<ProdutoDTO> produtoDTOList;
+    @XmlElement(name = "det", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private List<DetDTO> detList;
+
 
     @NotNull(message = "Data de emissão é obrigatória!")
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
@@ -63,11 +63,14 @@ public class NotaFiscalDTO {
     @XmlElement(name = "total", namespace = "http://www.portalfiscal.inf.br/nfe")
     private TotalDTO totalDTO;
 
+    @XmlElement(name = "infNFe", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private InfNFeDTO infNFe;
+
     public NotaFiscalDTO(){
 
     }
 
-    public NotaFiscalDTO(String numero, String serie, LocalDateTime dataEmissao, BigDecimal valorTotal, String chaveAcesso, EmitenteDTO emitenteDTO, DestinatarioDTO destinatarioDTO, List<ProdutoDTO> produtoDTOList) {
+    public NotaFiscalDTO(String numero, String serie, LocalDateTime dataEmissao, BigDecimal valorTotal, String chaveAcesso, EmitenteDTO emitenteDTO, DestinatarioDTO destinatarioDTO, List<DetDTO> detList) {
         this.numero = numero;
         this.serie = serie;
         this.dataEmissao = dataEmissao;
@@ -75,7 +78,7 @@ public class NotaFiscalDTO {
         this.chaveAcesso = chaveAcesso;
         this.emitenteDTO = emitenteDTO;
         this.destinatarioDTO = destinatarioDTO;
-        this.produtoDTOList = produtoDTOList;
+       this.detList = detList;
     }
 
     public String getNumero() {
@@ -126,13 +129,6 @@ public class NotaFiscalDTO {
         this.destinatarioDTO = destinatarioDTO;
     }
 
-    public List<ProdutoDTO> getProdutoDTOList() {
-        return produtoDTOList;
-    }
-
-    public void setProdutoDTOList(List<ProdutoDTO> produtoDTOList) {
-        this.produtoDTOList = produtoDTOList;
-    }
 
     public EmitenteDTO getEmitente() {
         return emitenteDTO;
@@ -140,5 +136,49 @@ public class NotaFiscalDTO {
 
     public DestinatarioDTO getDestinatario() {
         return destinatarioDTO;
+    }
+
+    public List<DetDTO> getDetList() {
+        return detList;
+    }
+
+    public void setDetList(List<DetDTO> detList) {
+        this.detList = detList;
+    }
+
+    public InfNFeDTO getInfNFe() {
+        return infNFe;
+    }
+
+    public void setInfNFe(InfNFeDTO infNFe) {
+        this.infNFe = infNFe;
+    }
+
+    public IdeDTO getIdeDTO() {
+        return ideDTO;
+    }
+
+    public void setIdeDTO(IdeDTO ideDTO) {
+        this.ideDTO = ideDTO;
+    }
+
+    public EmitenteDTO getEmitenteDTO() {
+        return emitenteDTO;
+    }
+
+    public DestinatarioDTO getDestinatarioDTO() {
+        return destinatarioDTO;
+    }
+
+    public void setDestinatarioDTO(DestinatarioDTO destinatarioDTO) {
+        this.destinatarioDTO = destinatarioDTO;
+    }
+
+    public TotalDTO getTotalDTO() {
+        return totalDTO;
+    }
+
+    public void setTotalDTO(TotalDTO totalDTO) {
+        this.totalDTO = totalDTO;
     }
 }

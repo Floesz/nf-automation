@@ -8,11 +8,10 @@ public class DestinatarioMapper {
 
     public static Destinatario toEntity(DestinatarioDTO dto){
         Destinatario destinatario = new Destinatario();
-        EnderecoDTO end = new EnderecoDTO();
-        destinatario.setNome(dto.getNome());
+        destinatario.getNome();
         destinatario.getEndereco();
-        destinatario.setCnpjOuCpf(dto.getCnpjOuCpf());
-        destinatario.setInscricaoEstadual(dto.getInscricaoEstadual());
+        destinatario.getCnpjOuCpf();
+        destinatario.getInscricaoEstadual();
         return destinatario;
     }
 

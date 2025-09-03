@@ -18,7 +18,7 @@ public class NotaFiscalXmlParser {
     private JAXBContext jaxbContext;
 
     public NotaFiscalXmlParser() throws JAXBException {
-        jaxbContext = JAXBContext.newInstance(NotaFiscalDTO.class, EmitenteDTO.class, DestinatarioDTO.class, ProdutoDTO.class, NfeProcDTO.class);
+        jaxbContext = JAXBContext.newInstance(NotaFiscalDTO.class);
     }
 
     private void validarCampos(NotaFiscalDTO dto){
@@ -28,7 +28,7 @@ public class NotaFiscalXmlParser {
     }
 
     public NotaFiscalDTO parse(InputStream is) throws JAXBException {
-        jaxbContext = JAXBContext.newInstance(NfeProcDTO.class, NotaFiscalDTO.class);
+        jaxbContext = JAXBContext.newInstance(NfeProcDTO.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         Object obj = unmarshaller.unmarshal(is);
 

@@ -1,5 +1,6 @@
 package com.nf_automation.controller;
 
+import com.nf_automation.dto.NfeProcDTO;
 import com.nf_automation.dto.NotaFiscalDTO;
 import com.nf_automation.exception.ResourceConflictException;
 import com.nf_automation.mapper.NotaFiscalMapper;
@@ -75,7 +76,7 @@ public class NotaFiscalController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadNotaFiscal(@RequestParam("file")MultipartFile file){
         try {
-            NotaFiscalDTO dto = parser.parse(file.getInputStream());
+            NfeProcDTO dto = parser.parse(file.getInputStream());
             NotaFiscal nf = NotaFiscalMapper.toEntity(dto);
             service.salvar(nf);
             return ResponseEntity.ok("Nota fiscal processada com sucesso!");
